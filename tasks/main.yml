@@ -1,0 +1,8 @@
+---
+# tasks file for sysctl
+- name: set sysctl rules
+  sysctl: 
+    name="{{ item.key }}" value="{{ item.value }}" 
+    sysctl_set=yes state=present reload=yes ignoreerrors="{{ sysctl_ignore_errors }}"
+  with_dict: "{{ sysctl_rules }}"
+  when: sysctl_rules is defined
